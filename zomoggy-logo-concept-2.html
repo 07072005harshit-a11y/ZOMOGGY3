@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZOMOGGY — Brand Concept II</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@700&family=Syne:wght@400;700;800&family=Anton&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --flame: #FF6B00;
+    --amber: #FFAD0D;
+    --cream: #FDF5E4;
+    --ink: #110F0A;
+    --bark: #2A1F12;
+    --ash: #C8B89A;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    padding: 28px 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header span {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  header p { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+  /* HERO SECTION */
+  .hero {
+    min-height: 480px;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Grain texture overlay */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* warm glow */
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(255,107,0,0.12) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    animation: rise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* THE LOGO */
+  .logo-badge {
+    width: 72px;
+    height: 72px;
+    background: var(--flame);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    box-shadow: 0 0 0 1px rgba(255,107,0,0.3), 0 20px 60px rgba(255,107,0,0.25);
+    position: relative;
+  }
+
+  .wordmark {
+    font-family: 'Anton', sans-serif;
+    font-size: 100px;
+    letter-spacing: -2px;
+    line-height: 1;
+    color: var(--cream);
+    position: relative;
+  }
+
+  .wordmark .z-letter {
+    color: var(--flame);
+    display: inline-block;
+  }
+
+  .wordmark .ggy {
+    color: var(--amber);
+  }
+
+  .tagline-hero {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: rgba(253,245,228,0.35);
+    margin-top: 16px;
+  }
+
+  /* SECTION */
+  .sec {
+    padding: 72px;
+    border-bottom: 1px solid rgba(17,15,10,0.08);
+  }
+  .sec-label {
+    font-size: 9px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--flame);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sec-label::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--flame);
+    opacity: 0.4;
+  }
+
+  /* VARIANTS */
+  .var-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .var-cell {
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 32px 24px;
+  }
+  .var-cell .tag {
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* PALETTE */
+  .pal {
+    display: flex;
+    height: 100px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .pal-chip {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 14px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* TYPE */
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .type-card {
+    padding: 32px;
+    background: var(--ink);
+    border-radius: 6px;
+    color: var(--cream);
+  }
+  .type-role {
+    font-size: 8px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--ash);
+    margin-bottom: 16px;
+  }
+
+  /* BEFORE AFTER */
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; border-radius: 6px; overflow: hidden; }
+  .ba-cell {
+    padding: 60px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+  .ba-tag {
+    font-size: 8px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+  ul.marks { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  ul.marks li { font-size: 11px; display: flex; align-items: center; gap: 8px; }
+
+  /* MOCKUPS */
+  .mock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .mock-card {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(17,15,10,0.1);
+    background: white;
+  }
+  .mock-title {
+    padding: 10px 18px;
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ash);
+    background: var(--ink);
+    color: rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .mock-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    padding: 32px;
+  }
+
+  /* WHY CARDS */
+  .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .why-card {
+    padding: 28px 24px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 6px;
+  }
+  .why-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 52px;
+    color: var(--flame);
+    opacity: 0.25;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .why-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .why-desc { font-size: 11px; color: var(--ash); line-height: 1.7; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 32px 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+  footer span { color: var(--flame); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <span>Zomoggy — Identity Concept II</span>
+  <p>Warm · Bold · Unapologetic</p>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <!-- Icon badge -->
+    <div class="logo-badge">
+      <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
+        <!-- Fork + flame hybrid mark -->
+        <rect x="7" y="6" width="4" height="14" rx="2" fill="white" opacity="0.9"/>
+        <rect x="15" y="6" width="4" height="14" rx="2" fill="white" opacity="0.9"/>
+        <rect x="23" y="6" width="4" height="14" rx="2" fill="white" opacity="0.9"/>
+        <path d="M9 20 Q20 20 20 28 Q20 36 20 36 Q20 36 11 36 L11 20" fill="white" opacity="0.0"/>
+        <!-- flame -->
+        <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white" opacity="0.95"/>
+      </svg>
+    </div>
+
+    <!-- Wordmark -->
+    <div class="wordmark">
+      <span class="z-letter">Z</span>OM<span class="ggy">OGGY</span>
+    </div>
+
+    <div class="tagline-hero">Every Craving · One Roof · Delhi</div>
+  </div>
+</div>
+
+<!-- VARIANTS -->
+<div class="sec">
+  <div class="sec-label">01 — Logo Variants</div>
+  <div class="var-grid">
+
+    <!-- Dark -->
+    <div class="var-cell" style="background: var(--ink);">
+      <svg width="220" height="58" viewBox="0 0 220 58" fill="none">
+        <text x="4" y="50" font-family="'Anton', sans-serif" font-size="52" letter-spacing="-1px">
+          <tspan fill="#FF6B00">Z</tspan><tspan fill="#FDF5E4">OM</tspan><tspan fill="#FFAD0D">OGGY</tspan>
+        </text>
+      </svg>
+      <span class="tag" style="color: rgba(255,255,255,0.2);">Dark · Primary</span>
+    </div>
+
+    <!-- Cream -->
+    <div class="var-cell" style="background: var(--cream);">
+      <svg width="220" height="58" viewBox="0 0 220 58" fill="none">
+        <text x="4" y="50" font-family="'Anton', sans-serif" font-size="52" letter-spacing="-1px">
+          <tspan fill="#FF6B00">Z</tspan><tspan fill="#110F0A">OM</tspan><tspan fill="#FFAD0D">OGGY</tspan>
+        </text>
+      </svg>
+      <span class="tag" style="color: var(--ash);">Cream · Secondary</span>
+    </div>
+
+    <!-- All amber -->
+    <div class="var-cell" style="background: var(--flame);">
+      <svg width="220" height="58" viewBox="0 0 220 58" fill="none">
+        <text x="4" y="50" font-family="'Anton', sans-serif" font-size="52" letter-spacing="-1px" fill="#FDF5E4">ZOMOGGY</text>
+      </svg>
+      <span class="tag" style="color: rgba(253,245,228,0.5);">Flame · Bold</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ICON MARK -->
+<div class="sec" style="background: var(--ink);">
+  <div class="sec-label" style="color: var(--amber);">02 — Icon Mark</div>
+  <div style="display: flex; gap: 48px; align-items: center;">
+    <div style="display: flex; gap: 20px; align-items: flex-end;">
+
+      <!-- 96 -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div style="width: 96px; height: 96px; background: var(--flame); border-radius: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 40px rgba(255,107,0,0.3);">
+          <svg width="54" height="54" viewBox="0 0 40 40" fill="none">
+            <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white"/>
+          </svg>
+        </div>
+        <span style="font-size: 8px; letter-spacing: 2px; color: rgba(255,255,255,0.2); text-transform: uppercase;">96px</span>
+      </div>
+
+      <!-- 60 -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div style="width: 60px; height: 60px; background: var(--flame); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+          <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+            <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white"/>
+          </svg>
+        </div>
+        <span style="font-size: 8px; letter-spacing: 2px; color: rgba(255,255,255,0.2); text-transform: uppercase;">60px</span>
+      </div>
+
+      <!-- 40 -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div style="width: 40px; height: 40px; background: var(--flame); border-radius: 9px; display: flex; align-items: center; justify-content: center;">
+          <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+            <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white"/>
+          </svg>
+        </div>
+        <span style="font-size: 8px; letter-spacing: 2px; color: rgba(255,255,255,0.2); text-transform: uppercase;">40px</span>
+      </div>
+
+      <!-- 20 -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div style="width: 20px; height: 20px; background: var(--flame); border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+          <svg width="12" height="12" viewBox="0 0 40 40" fill="none">
+            <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white"/>
+          </svg>
+        </div>
+        <span style="font-size: 8px; letter-spacing: 2px; color: rgba(255,255,255,0.2); text-transform: uppercase;">20px</span>
+      </div>
+    </div>
+
+    <div style="flex: 1; padding-left: 40px; border-left: 1px solid rgba(255,255,255,0.06);">
+      <p style="font-family: 'Manrope', sans-serif; font-size: 13px; line-height: 1.9; color: var(--ash);">
+        The flame mark is the icon — <strong style="color: var(--cream);">flame = heat, passion, cravings.</strong> It speaks food immediately without being literal (no pizza slice, no fork). Abstract enough to be premium. Recognizable enough to be remembered. Orange carries the existing brand color forward without any cost to reprinting.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- PALETTE -->
+<div class="sec">
+  <div class="sec-label">03 — Colour System</div>
+  <div class="pal">
+    <div class="pal-chip" style="background: #FF6B00; flex: 2;"><span style="color: rgba(255,255,255,0.6); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;">Flame #FF6B00</span></div>
+    <div class="pal-chip" style="background: #FFAD0D; flex: 1.5;"><span style="color: rgba(17,15,10,0.5); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;">Amber #FFAD0D</span></div>
+    <div class="pal-chip" style="background: #110F0A; flex: 2;"><span style="color: rgba(255,255,255,0.2); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;">Ink #110F0A</span></div>
+    <div class="pal-chip" style="background: #2A1F12; flex: 1;"><span style="color: rgba(255,255,255,0.15); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;">Bark</span></div>
+    <div class="pal-chip" style="background: #FDF5E4; flex: 1.5;"><span style="color: #9A8A6A; font-size: 8px; letter-spacing: 2px; text-transform: uppercase;">Cream #FDF5E4</span></div>
+  </div>
+  <p style="font-size: 12px; color: #8A7A6A; line-height: 1.8;">
+    Flame orange replaces yellow-amber as the primary — it's warmer, more appetising, more premium. The existing amber (#FFAD0D) becomes an accent, requiring no existing material reprints — only new items use the refined palette.
+  </p>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="sec" style="background: #F7EDD8;">
+  <div class="sec-label">04 — Typography</div>
+  <div class="type-grid">
+    <div class="type-card">
+      <div class="type-role">Display / Wordmark</div>
+      <div style="font-family: 'Anton', sans-serif; font-size: 60px; line-height: 1; letter-spacing: -1px; color: var(--cream);">Anton</div>
+      <div style="margin-top: 12px; font-size: 11px; color: var(--ash); line-height: 1.7;">Condensed, punchy, absolutely zero ambiguity. Used by Red Bull, Vice, Gorillaz. Makes the wordmark feel like a billboard headline — youth-coded but not childish.</div>
+    </div>
+    <div class="type-card">
+      <div class="type-role">Body / Menus / UI</div>
+      <div style="font-family: 'Manrope', sans-serif; font-size: 32px; font-weight: 300; color: var(--cream); line-height: 1.2;">Manrope Light</div>
+      <div style="margin-top: 12px; font-size: 11px; color: var(--ash); line-height: 1.7;">Geometric, modern, warm. Designed for screens and print. Pairs with Anton without competing. Perfect for menu items, captions, prices.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BEFORE / AFTER -->
+<div class="sec" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; border-bottom: none;">
+  <div style="padding: 72px 72px 40px;">
+    <div class="sec-label">05 — Before vs After</div>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-cell" style="background: #000; min-height: 340px;">
+      <div class="ba-tag" style="background: rgba(255,255,255,0.06); color: #555;">Current</div>
+      <svg width="260" height="75" viewBox="0 0 260 75" fill="none">
+        <text x="8" y="62" font-family="Arial Black, sans-serif" font-size="56" fill="white" stroke="white" stroke-width="2">ZOMOGGY</text>
+        <polygon points="130,0 150,0 118,40 140,40 105,75 118,42 96,42" fill="#F5A623" opacity="0.9"/>
+      </svg>
+      <ul class="marks">
+        <li style="color: #FF6B6B;"><span style="font-size: 13px;">✕</span> Gaming logo energy</li>
+        <li style="color: #FF6B6B;"><span style="font-size: 13px;">✕</span> Cuts word in half</li>
+        <li style="color: #FF6B6B;"><span style="font-size: 13px;">✕</span> No food association</li>
+        <li style="color: #FF6B6B;"><span style="font-size: 13px;">✕</span> Fails at small sizes</li>
+      </ul>
+    </div>
+    <div class="ba-cell" style="background: var(--ink); min-height: 340px;">
+      <div class="ba-tag" style="background: rgba(255,107,0,0.15); color: var(--flame);">Redesigned</div>
+      <svg width="260" height="75" viewBox="0 0 260 75" fill="none">
+        <text x="4" y="62" font-family="'Anton', sans-serif" font-size="60" letter-spacing="-1">
+          <tspan fill="#FF6B00">Z</tspan><tspan fill="#FDF5E4">OM</tspan><tspan fill="#FFAD0D">OGGY</tspan>
+        </text>
+      </svg>
+      <ul class="marks">
+        <li style="color: #6BCB77;"><span style="font-size: 13px;">✓</span> Bold, premium, scalable</li>
+        <li style="color: #6BCB77;"><span style="font-size: 13px;">✓</span> Z in flame color = identity</li>
+        <li style="color: #6BCB77;"><span style="font-size: 13px;">✓</span> Flame icon = food passion</li>
+        <li style="color: #6BCB77;"><span style="font-size: 13px;">✓</span> Works at every single size</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- MOCKUPS -->
+<div class="sec" style="background: #F0E5D0;">
+  <div class="sec-label">06 — In The Real World</div>
+  <div class="mock-grid">
+
+    <!-- Signage -->
+    <div class="mock-card">
+      <div class="mock-title">Restaurant Signage</div>
+      <div class="mock-body" style="background: #0A0806;">
+        <div style="padding: 24px 48px; background: var(--ink); border: 1px solid rgba(255,107,0,0.25); border-radius: 4px; box-shadow: 0 0 80px rgba(255,107,0,0.1);">
+          <svg width="240" height="56" viewBox="0 0 240 56" fill="none">
+            <text x="4" y="48" font-family="'Anton', sans-serif" font-size="52" letter-spacing="-1">
+              <tspan fill="#FF6B00">Z</tspan><tspan fill="#FDF5E4">OM</tspan><tspan fill="#FFAD0D">OGGY</tspan>
+            </text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- App + Zomato badge -->
+    <div class="mock-card">
+      <div class="mock-title">App Icon / Zomato Badge</div>
+      <div class="mock-body" style="background: #0A0806; gap: 20px; display: flex;">
+        <!-- App icon -->
+        <div style="width: 80px; height: 80px; background: var(--flame); border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(255,107,0,0.3);">
+          <svg width="44" height="44" viewBox="0 0 40 40" fill="none">
+            <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white"/>
+          </svg>
+        </div>
+        <!-- Delivery bag -->
+        <div style="width: 80px; height: 80px; background: var(--cream); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+          <svg width="44" height="14" viewBox="0 0 240 56" fill="none">
+            <text x="4" y="44" font-family="'Anton', sans-serif" font-size="44" letter-spacing="-1">
+              <tspan fill="#FF6B00">Z</tspan><tspan fill="#110F0A">OM</tspan><tspan fill="#FFAD0D">OGGY</tspan>
+            </text>
+          </svg>
+          <span style="font-size: 6px; letter-spacing: 2px; color: #9A8A6A; text-transform: uppercase;">delivery</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cup + Box packaging -->
+    <div class="mock-card">
+      <div class="mock-title">Packaging</div>
+      <div class="mock-body" style="background: #0A0806; gap: 24px; display: flex; align-items: center;">
+        <!-- Cup -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <div style="width: 68px; height: 96px; background: linear-gradient(170deg, #1A1410, #2A1F14); border-radius: 8px 8px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,107,0,0.2); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--flame);"></div>
+            <svg width="48" height="13" viewBox="0 0 240 56" fill="none">
+              <text x="4" y="44" font-family="'Anton', sans-serif" font-size="44">
+                <tspan fill="#FF6B00">Z</tspan><tspan fill="#FDF5E4">OM</tspan><tspan fill="#FFAD0D">OGGY</tspan>
+              </text>
+            </svg>
+          </div>
+          <span style="font-size: 8px; color: #444; letter-spacing: 2px; text-transform: uppercase;">Cup</span>
+        </div>
+        <!-- Takeaway box -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <div style="width: 100px; height: 68px; background: var(--cream); border-radius: 6px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,107,0,0.2); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--flame);"></div>
+            <svg width="76" height="20" viewBox="0 0 240 56" fill="none">
+              <text x="4" y="44" font-family="'Anton', sans-serif" font-size="44">
+                <tspan fill="#FF6B00">Z</tspan><tspan fill="#110F0A">OM</tspan><tspan fill="#FFAD0D">OGGY</tspan>
+              </text>
+            </svg>
+          </div>
+          <span style="font-size: 8px; color: #444; letter-spacing: 2px; text-transform: uppercase;">Box</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Staff uniform -->
+    <div class="mock-card">
+      <div class="mock-title">Staff T-Shirt / Cap</div>
+      <div class="mock-body" style="background: #0A0806; gap: 20px; display: flex; align-items: center;">
+        <!-- Black tee -->
+        <div style="width: 100px; height: 100px; background: var(--ink); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.04);">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+            <div style="width: 26px; height: 26px; background: var(--flame); border-radius: 7px; display: flex; align-items: center; justify-content: center;">
+              <svg width="16" height="16" viewBox="0 0 40 40" fill="none">
+                <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white"/>
+              </svg>
+            </div>
+            <svg width="58" height="14" viewBox="0 0 240 56" fill="none">
+              <text x="4" y="44" font-family="'Anton', sans-serif" font-size="44" fill="#FDF5E4" letter-spacing="-1">ZOMOGGY</text>
+            </svg>
+          </div>
+        </div>
+        <!-- Orange tee -->
+        <div style="width: 100px; height: 100px; background: var(--flame); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+            <div style="width: 26px; height: 26px; background: var(--ink); border-radius: 7px; display: flex; align-items: center; justify-content: center;">
+              <svg width="16" height="16" viewBox="0 0 40 40" fill="none">
+                <path d="M20 38 C14 38 10 34 10 28 C10 22 14 20 16 16 C16 20 18 21 20 21 C22 21 24 19 24 16 C26 20 30 22 30 28 C30 34 26 38 20 38Z" fill="white"/>
+              </svg>
+            </div>
+            <svg width="58" height="14" viewBox="0 0 240 56" fill="none">
+              <text x="4" y="44" font-family="'Anton', sans-serif" font-size="44" fill="white" letter-spacing="-1">ZOMOGGY</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHY -->
+<div class="sec">
+  <div class="sec-label">07 — Why This Wins</div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <div class="why-title">The Z Pops</div>
+      <div class="why-desc">Making the Z in flame-orange creates an instant visual hook. Your eye goes there first, locks in the brand initial, then reads the full name. Pure memory engineering.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <div class="why-title">Flame = Food, Not Gaming</div>
+      <div class="why-desc">The icon is a flame — universally associated with cooking, heat, spice, desire. Replaces the lightning bolt with something that actually belongs in F&B.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <div class="why-title">Delhi Youth-Coded</div>
+      <div class="why-desc">Anton font is the same energy as streetwear drops and rap posters. Uttam Nagar youth crowd will feel this is theirs — while parents see it as premium.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Zomoggy — <span>Identity Concept II</span> · Confidential</p>
+  <p>Uttam Nagar, New Delhi · 2026</p>
+</footer>
+
+</body>
+</html>
