@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZOMOGGY — Concept III</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Outfit:wght@200;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --yolk:      #FFBE0B;
+  --tangerine: #FB5607;
+  --chili:     #FF006E;
+  --ink:       #0D0B08;
+  --paper:     #F5F0E8;
+  --smoke:     #1C1916;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom cursor — desktop only */
+.cursor, .cursor-ring { display: none; }
+@media (pointer: fine) {
+  .cursor {
+    display: block;
+    width: 12px; height: 12px;
+    background: var(--yolk);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    display: block;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,190,11,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.3s ease;
+    transform: translate(-50%, -50%);
+  }
+  body { cursor: none; }
+}
+
+/* LOADING SCREEN */
+#loader {
+  position: fixed; inset: 0;
+  background: var(--ink);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: loaderOut 0.6s ease 1.8s forwards;
+}
+@keyframes loaderOut {
+  to { opacity: 0; pointer-events: none; }
+}
+.loader-text {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(9px,2vw,11px);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--yolk);
+  animation: pulse 1.8s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* HERO */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  padding: 80px 20px 100px;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+.blob-1 { width: clamp(240px,50vw,500px); height: clamp(240px,50vw,500px); background: var(--tangerine); top: -100px; left: -150px; animation-delay: 0s; }
+.blob-2 { width: clamp(200px,40vw,400px); height: clamp(200px,40vw,400px); background: var(--yolk); bottom: -100px; right: -100px; animation-delay: -3s; }
+.blob-3 { width: clamp(150px,30vw,300px); height: clamp(150px,30vw,300px); background: var(--chili); top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: -6s; }
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, 30px) scale(1.1); }
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,190,11,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,190,11,0.03) 1px, transparent 1px);
+  background-size: clamp(30px,6vw,60px) clamp(30px,6vw,60px);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.logo-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 200;
+  font-size: clamp(9px,1.8vw,11px);
+  letter-spacing: clamp(6px,2vw,12px);
+  text-transform: uppercase;
+  color: var(--yolk);
+  margin-bottom: 16px;
+  animation: fadeSlideDown 1s ease 2s both;
+}
+
+.logo-wordmark {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(48px,10vw,140px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: clamp(-2px,-0.5vw,-4px);
+  position: relative;
+  animation: wordmarkIn 1.2s cubic-bezier(0.16,1,0.3,1) 2.1s both;
+}
+
+@keyframes wordmarkIn {
+  from { opacity: 0; transform: translateY(40px) skewY(3deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0); }
+}
+
+.logo-wordmark .l1 { color: var(--paper); }
+.logo-wordmark .l2 { color: var(--yolk); }
+.logo-wordmark .l3 { color: var(--paper); }
+.logo-wordmark .l4 { color: var(--tangerine); }
+.logo-wordmark .l5 { color: var(--paper); }
+.logo-wordmark .l6 { color: var(--yolk); }
+.logo-wordmark .l7 { color: var(--paper); }
+
+.slash-accent {
+  width: 100%;
+  height: clamp(3px,0.8vw,6px);
+  background: linear-gradient(90deg, transparent, var(--tangerine) 20%, var(--yolk) 60%, transparent);
+  margin-top: 12px;
+  transform: skewX(-15deg);
+  animation: slashIn 0.8s ease 3.1s both;
+}
+@keyframes slashIn {
+  from { transform: skewX(-15deg) scaleX(0); }
+  to   { transform: skewX(-15deg) scaleX(1); }
+}
+
+.logo-sub {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: clamp(8px,2vw,16px);
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeSlideDown 0.8s ease 3.2s both;
+}
+.logo-sub span {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 200;
+  font-size: clamp(8px,1.5vw,10px);
+  letter-spacing: clamp(3px,1.5vw,6px);
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.35);
+}
+.logo-sub .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--tangerine); flex-shrink: 0; }
+
+/* Corner labels — desktop only */
+.corner-label {
+  position: absolute;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  font-family: 'Outfit', sans-serif;
+  display: none;
+}
+@media (min-width: 900px) {
+  .corner-label { display: block; }
+  .corner-label.tl { top: 32px; left: 40px; }
+  .corner-label.tr { top: 32px; right: 40px; text-align: right; }
+  .corner-label.bl { bottom: 32px; left: 40px; }
+  .corner-label.br { bottom: 32px; right: 40px; }
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeSlideDown 1s ease 3.5s both, bobble 2s ease 4.5s infinite;
+}
+.scroll-cue span { font-size: 8px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--yolk), transparent); }
+
+@keyframes bobble {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTION SYSTEM */
+section {
+  padding: clamp(48px,7vw,100px) clamp(20px,5vw,80px);
+  position: relative;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(7px,1.3vw,8px);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--yolk);
+  margin-bottom: clamp(28px,4vw,48px);
+  padding: 6px 14px;
+  border: 1px solid rgba(255,190,11,0.2);
+  border-radius: 100px;
+}
+.chip::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--yolk);
+}
+
+/* ICON SECTION */
+.icon-section {
+  background: var(--smoke);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.icon-left {
+  padding: clamp(48px,7vw,100px) clamp(24px,5vw,60px) clamp(48px,7vw,100px) clamp(24px,5vw,80px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px,4vw,40px);
+}
+.icon-right {
+  background: var(--ink);
+  min-height: clamp(300px,40vw,500px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.icon-right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,190,11,0.08) 0%, transparent 70%);
+}
+
+.icon-display {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px,3vw,32px);
+}
+
+.icon-sizes {
+  display: flex;
+  gap: clamp(12px,2vw,20px);
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.icon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.icon-box .sz {
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.2);
+  text-transform: uppercase;
+}
+
+.icon-bg {
+  background: var(--tangerine);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.icon-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+}
+
+/* VARIANTS */
+.variants-section {
+  background: var(--paper);
+  color: var(--ink);
+}
+.var-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+}
+.var-panel {
+  min-height: clamp(140px,20vw,220px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: clamp(20px,3.5vw,40px) clamp(12px,2vw,24px);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.var-panel:hover { transform: scale(1.02); z-index: 2; }
+.var-panel svg { width: 100%; max-width: 240px; height: auto; }
+.var-panel .tag {
+  font-size: clamp(6px,1.1vw,7px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+/* PALETTE */
+.palette-section {
+  background: var(--ink);
+}
+.pal-mega {
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 1fr 1.5fr;
+  height: clamp(80px,12vw,120px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  margin-bottom: 32px;
+}
+.pal-chip {
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(8px,1.5vw,14px) clamp(10px,1.5vw,18px);
+  font-size: clamp(6px,1vw,7px);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.color-story {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(8px,1.5vw,16px);
+  margin-top: 32px;
+}
+.color-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.color-swatch {
+  height: clamp(40px,6vw,56px);
+  border-radius: 8px;
+}
+.color-name { font-size: clamp(9px,1.5vw,10px); font-weight: 600; }
+.color-hex { font-size: clamp(8px,1.3vw,9px); color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+.color-use { font-size: clamp(7px,1.2vw,9px); color: rgba(255,255,255,0.2); margin-top: 2px; }
+
+/* TYPOGRAPHY */
+.type-section {
+  background: var(--tangerine);
+  color: var(--ink);
+  overflow: hidden;
+}
+.type-mega {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(48px,9vw,120px);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: clamp(-2px,-0.5vw,-3px);
+  color: rgba(13,11,8,0.12);
+  user-select: none;
+  margin-bottom: -20px;
+  overflow: hidden;
+}
+.type-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  position: relative;
+  z-index: 2;
+}
+.type-card {
+  padding: clamp(24px,4vw,40px);
+  background: var(--ink);
+  color: var(--paper);
+}
+.type-role { font-size: clamp(7px,1.2vw,8px); letter-spacing: 4px; text-transform: uppercase; color: var(--yolk); margin-bottom: 20px; }
+
+/* BEFORE/AFTER */
+.ba-section {
+  background: #111;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.ba-panel {
+  min-height: clamp(320px,45vw,500px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: clamp(40px,6vw,80px) clamp(24px,5vw,60px);
+}
+.ba-panel svg { width: 100%; max-width: 270px; height: auto; }
+.ba-panel.before { background: #080808; }
+.ba-panel.after  { background: var(--smoke); border-left: 1px solid rgba(255,190,11,0.1); }
+
+.verdict {
+  font-size: clamp(7px,1.2vw,8px); letter-spacing: 4px; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 100px;
+}
+.verdict.bad { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); }
+.verdict.good { background: rgba(255,190,11,0.12); color: var(--yolk); }
+
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.check-list li { font-size: clamp(10px,1.8vw,12px); display: flex; align-items: center; gap: 10px; font-weight: 300; }
+
+/* MOCKUPS */
+.mock-section {
+  background: var(--paper);
+  color: var(--ink);
+}
+.mock-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: clamp(8px,1.5vw,16px);
+}
+.mock-card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(17,15,10,0.08);
+}
+.mock-card.tall { grid-row: span 2; }
+.mock-label {
+  padding: 10px 18px;
+  font-size: clamp(6px,1.1vw,7px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(17,15,10,0.3);
+  background: rgba(17,15,10,0.04);
+  border-bottom: 1px solid rgba(17,15,10,0.06);
+}
+.mock-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px,3.5vw,40px) clamp(16px,2.5vw,32px);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* STRATEGY */
+.strategy-section {
+  background: var(--ink);
+}
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 8px;
+}
+.strategy-card {
+  padding: clamp(24px,4vw,40px) clamp(20px,3vw,32px);
+  background: var(--smoke);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.strategy-card:hover { background: #252019; }
+.strategy-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.strategy-card:nth-child(1)::before { background: var(--yolk); }
+.strategy-card:nth-child(2)::before { background: var(--tangerine); }
+.strategy-card:nth-child(3)::before { background: var(--chili); }
+
+.s-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(36px,5vw,56px);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 20px;
+  opacity: 0.15;
+}
+.s-num.y { color: var(--yolk); }
+.s-num.o { color: var(--tangerine); }
+.s-num.r { color: var(--chili); }
+.s-title { font-size: clamp(12px,2vw,14px); font-weight: 600; margin-bottom: 10px; }
+.s-desc { font-size: clamp(10px,1.6vw,11px); color: rgba(245,240,232,0.45); line-height: 1.8; }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,190,11,0.08);
+  padding: clamp(24px,4vw,40px) clamp(20px,5vw,80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+footer p { font-size: clamp(7px,1.2vw,8px); letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.15); }
+footer .f-logo {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(12px,2vw,14px);
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── MOBILE BREAKPOINTS ─── */
+@media (max-width: 768px) {
+  .icon-section {
+    grid-template-columns: 1fr;
+  }
+  .icon-right {
+    min-height: 280px;
+  }
+  .var-row {
+    grid-template-columns: 1fr;
+  }
+  .pal-mega {
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+  }
+  .pal-mega > div:nth-child(3),
+  .pal-mega > div:nth-child(4),
+  .pal-mega > div:nth-child(5) {
+    display: none;
+  }
+  .color-story {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .type-cards {
+    grid-template-columns: 1fr;
+  }
+  .ba-section {
+    grid-template-columns: 1fr;
+  }
+  .mock-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .mock-card.tall {
+    grid-row: span 1;
+    grid-column: span 2;
+  }
+  .strategy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .color-story {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mock-grid {
+    grid-template-columns: 1fr;
+  }
+  .mock-card.tall {
+    grid-column: span 1;
+  }
+  .pal-mega {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pal-mega > div:nth-child(2) {
+    display: flex;
+  }
+  .logo-sub .dot:last-of-type,
+  .logo-sub span:last-of-type {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .strategy-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .strategy-grid .strategy-card:last-child {
+    grid-column: span 2;
+    max-width: 50%;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .mock-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mock-card.tall {
+    grid-row: span 1;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div id="loader"><div class="loader-text">Loading Brand Identity</div></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="corner-label tl">Brand Identity System<br>Concept III · 2026</div>
+  <div class="corner-label tr">Delhi · India<br>Multi-Cuisine</div>
+  <div class="corner-label bl">Confidential</div>
+  <div class="corner-label br">Youth · Premium</div>
+
+  <div class="hero-content">
+    <div class="logo-eyebrow">Brand Identity — Concept III</div>
+    <div class="logo-wordmark">
+      <span class="l1">Z</span><span class="l2">O</span><span class="l3">M</span><span class="l4">O</span><span class="l5">G</span><span class="l6">G</span><span class="l7">Y</span>
+    </div>
+    <div class="slash-accent"></div>
+    <div class="logo-sub">
+      <span>Every Craving</span>
+      <div class="dot"></div>
+      <span>One Destination</span>
+      <div class="dot"></div>
+      <span>Uttam Nagar</span>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ICON SYSTEM -->
+<section class="icon-section reveal">
+  <div class="icon-left">
+    <div class="chip">02 — Icon Mark</div>
+    <div>
+      <h2 style="font-family:'Unbounded',sans-serif; font-size:clamp(24px,4vw,36px); font-weight:900; line-height:1.1; letter-spacing:-1px; margin-bottom:20px;">
+        A mark that<br><span style="color:var(--yolk);">speaks food.</span>
+      </h2>
+      <p style="font-size:clamp(11px,1.8vw,13px); color:rgba(245,240,232,0.45); line-height:1.9; max-width:380px;">
+        The icon fuses a <strong style="color:var(--paper);">Z-form with a rising flame</strong> — abstract enough to be premium, clear enough to be instantly understood. It works alone as an app icon, sticker, or emboss without the wordmark.
+      </p>
+    </div>
+    <div class="icon-sizes">
+      <div class="icon-box">
+        <div class="icon-bg" style="width:clamp(64px,8vw,96px);height:clamp(64px,8vw,96px);border-radius:22px;">
+          <svg width="54" height="54" viewBox="0 0 60 60" fill="none">
+            <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="white" opacity="0.95"/>
+            <path d="M38 52 Q30 58 22 52 Q28 48 30 44 Q32 48 38 52Z" fill="rgba(255,190,11,0.8)"/>
+          </svg>
+        </div>
+        <span class="sz">96</span>
+      </div>
+      <div class="icon-box">
+        <div class="icon-bg" style="width:clamp(44px,6vw,64px);height:clamp(44px,6vw,64px);border-radius:15px;">
+          <svg width="36" height="36" viewBox="0 0 60 60" fill="none">
+            <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="white" opacity="0.95"/>
+          </svg>
+        </div>
+        <span class="sz">64</span>
+      </div>
+      <div class="icon-box">
+        <div class="icon-bg" style="width:clamp(30px,4vw,40px);height:clamp(30px,4vw,40px);border-radius:9px;">
+          <svg width="22" height="22" viewBox="0 0 60 60" fill="none">
+            <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="white"/>
+          </svg>
+        </div>
+        <span class="sz">40</span>
+      </div>
+      <div class="icon-box">
+        <div class="icon-bg" style="width:24px;height:24px;border-radius:5px;">
+          <svg width="13" height="13" viewBox="0 0 60 60" fill="none">
+            <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="white"/>
+          </svg>
+        </div>
+        <span class="sz">24</span>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <div class="icon-bg" style="width:56px;height:56px;border-radius:13px;background:var(--yolk);">
+        <svg width="32" height="32" viewBox="0 0 60 60" fill="none">
+          <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="var(--ink)"/>
+        </svg>
+      </div>
+      <div class="icon-bg" style="width:56px;height:56px;border-radius:13px;background:var(--paper);">
+        <svg width="32" height="32" viewBox="0 0 60 60" fill="none">
+          <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="var(--tangerine)"/>
+        </svg>
+      </div>
+      <div class="icon-bg" style="width:56px;height:56px;border-radius:13px;background:var(--ink);border:1px solid rgba(255,190,11,0.2);">
+        <svg width="32" height="32" viewBox="0 0 60 60" fill="none">
+          <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="var(--yolk)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="icon-right">
+    <div class="icon-display">
+      <div class="icon-bg" style="width:clamp(120px,20vw,200px);height:clamp(120px,20vw,200px);border-radius:48px;box-shadow:0 40px 100px rgba(251,86,7,0.4),0 0 0 1px rgba(255,190,11,0.2);">
+        <svg width="110" height="110" viewBox="0 0 60 60" fill="none">
+          <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="white" opacity="0.95"/>
+          <path d="M38 52 Q30 59 22 52 Q28 47 30 43 Q32 47 38 52Z" fill="rgba(255,190,11,0.9)"/>
+        </svg>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:clamp(16px,3vw,24px);font-weight:900;letter-spacing:-1px;">ZOMOGGY</div>
+        <div style="font-size:clamp(7px,1.2vw,9px);letter-spacing:5px;color:rgba(255,255,255,0.25);text-transform:uppercase;margin-top:6px;">Every Craving. One Destination.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VARIANTS -->
+<section class="variants-section reveal">
+  <div class="chip" style="color:var(--tangerine);border-color:rgba(251,86,7,0.25);">03 — Colour Variants</div>
+  <div class="var-row">
+    <div class="var-panel" style="background:var(--ink);">
+      <svg width="240" height="60" viewBox="0 0 260 66" fill="none">
+        <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="60" font-weight="900" letter-spacing="-2">
+          <tspan fill="#FFBE0B">Z</tspan><tspan fill="#F5F0E8">OMOGGY</tspan>
+        </text>
+      </svg>
+      <div style="width:100%;height:2px;background:linear-gradient(90deg,var(--tangerine),transparent);margin-top:-4px;"></div>
+      <span class="tag" style="color:rgba(255,255,255,0.2);">Dark · Primary Use</span>
+    </div>
+    <div class="var-panel" style="background:#F5F0E8;">
+      <svg width="240" height="60" viewBox="0 0 260 66" fill="none">
+        <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="60" font-weight="900" letter-spacing="-2">
+          <tspan fill="#FB5607">Z</tspan><tspan fill="#0D0B08">OMOGGY</tspan>
+        </text>
+      </svg>
+      <div style="width:100%;height:2px;background:linear-gradient(90deg,var(--tangerine),transparent);margin-top:-4px;"></div>
+      <span class="tag" style="color:rgba(17,15,10,0.3);">Paper · Packaging</span>
+    </div>
+    <div class="var-panel" style="background:var(--tangerine);">
+      <svg width="240" height="60" viewBox="0 0 260 66" fill="none">
+        <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="60" font-weight="900" letter-spacing="-2" fill="white">ZOMOGGY</text>
+      </svg>
+      <div style="width:100%;height:2px;background:rgba(255,255,255,0.3);margin-top:-4px;"></div>
+      <span class="tag" style="color:rgba(255,255,255,0.5);">Brand · Staff / Merch</span>
+    </div>
+  </div>
+</section>
+
+<!-- PALETTE -->
+<section class="palette-section reveal">
+  <div class="chip">04 — Colour System</div>
+  <div class="pal-mega">
+    <div class="pal-chip" style="background:#FFBE0B;"><span style="color:rgba(13,11,8,0.5);">Yolk #FFBE0B</span></div>
+    <div class="pal-chip" style="background:#FB5607;"><span style="color:rgba(255,255,255,0.6);">Tangerine #FB5607</span></div>
+    <div class="pal-chip" style="background:#0D0B08;"><span style="color:rgba(255,255,255,0.2);">Ink #0D0B08</span></div>
+    <div class="pal-chip" style="background:#1C1916;"><span style="color:rgba(255,255,255,0.15);">Smoke</span></div>
+    <div class="pal-chip" style="background:#F5F0E8;"><span style="color:rgba(13,11,8,0.4);">Paper #F5F0E8</span></div>
+  </div>
+  <div class="color-story">
+    <div class="color-card">
+      <div class="color-swatch" style="background:#FFBE0B;box-shadow:0 8px 24px rgba(255,190,11,0.3);"></div>
+      <div class="color-name">Yolk</div>
+      <div class="color-hex">#FFBE0B</div>
+      <div class="color-use">Primary accent</div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:#FB5607;box-shadow:0 8px 24px rgba(251,86,7,0.3);"></div>
+      <div class="color-name">Tangerine</div>
+      <div class="color-hex">#FB5607</div>
+      <div class="color-use">Z letter · icon</div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:#0D0B08;"></div>
+      <div class="color-name">Ink</div>
+      <div class="color-hex">#0D0B08</div>
+      <div class="color-use">Backgrounds</div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:#1C1916;border:1px solid rgba(255,255,255,0.06);"></div>
+      <div class="color-name">Smoke</div>
+      <div class="color-hex">#1C1916</div>
+      <div class="color-use">Cards</div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:#F5F0E8;"></div>
+      <div class="color-name">Paper</div>
+      <div class="color-hex">#F5F0E8</div>
+      <div class="color-use">Light bg</div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="type-section reveal">
+  <div class="chip" style="color:var(--ink);border-color:rgba(13,11,8,0.2);margin-bottom:0;">05 — Typography</div>
+  <div class="type-mega">TYPE</div>
+  <div class="type-cards">
+    <div class="type-card" style="border-radius:0 0 0 12px;">
+      <div class="type-role">Display / Wordmark</div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:clamp(32px,5vw,52px);font-weight:900;line-height:0.9;letter-spacing:-2px;margin-bottom:20px;">Unbounded</div>
+      <p style="font-size:clamp(10px,1.6vw,11px);color:rgba(245,240,232,0.4);line-height:1.8;">Ultra-wide, ultra-heavy. No other restaurant in Uttam Nagar will touch this. Impossible to ignore on a signboard. Screams confidence.</p>
+    </div>
+    <div class="type-card" style="border-radius:0 0 12px 0;">
+      <div class="type-role">Body / Menu / UI</div>
+      <div style="font-family:'Outfit',sans-serif;font-size:clamp(28px,4.5vw,40px);font-weight:200;line-height:1;margin-bottom:20px;">Outfit Light</div>
+      <p style="font-size:clamp(10px,1.6vw,11px);color:rgba(245,240,232,0.4);line-height:1.8;">Geometric, warm, extremely legible at body sizes. Perfect contrast to the heavy display font. Ideal for menu item names, prices, and app UI.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="ba-section reveal">
+  <div class="ba-panel before">
+    <div class="verdict bad">Current Logo — Problems</div>
+    <svg width="270" height="76" viewBox="0 0 270 76" fill="none">
+      <text x="8" y="64" font-family="Arial Black,sans-serif" font-size="58" fill="white" stroke="white" stroke-width="2">ZOMOGGY</text>
+      <polygon points="138,0 158,0 126,40 148,40 112,76 126,44 104,44" fill="#F5A623" opacity="0.9"/>
+    </svg>
+    <ul class="check-list">
+      <li style="color:#FF6B6B;">✕&nbsp; Lightning bolt = gaming brand</li>
+      <li style="color:#FF6B6B;">✕&nbsp; Font is cartoon, not premium</li>
+      <li style="color:#FF6B6B;">✕&nbsp; Word is split, hard to read</li>
+      <li style="color:#FF6B6B;">✕&nbsp; Fails below 60px</li>
+      <li style="color:#FF6B6B;">✕&nbsp; Black background only</li>
+    </ul>
+  </div>
+  <div class="ba-panel after">
+    <div class="verdict good">Redesigned — Solved</div>
+    <svg width="270" height="76" viewBox="0 0 270 76" fill="none">
+      <text x="4" y="66" font-family="'Unbounded',sans-serif" font-size="60" font-weight="900" letter-spacing="-2">
+        <tspan fill="#FFBE0B">Z</tspan><tspan fill="#F5F0E8">OMOGGY</tspan>
+      </text>
+    </svg>
+    <ul class="check-list">
+      <li style="color:#6BCB77;">✓&nbsp; Z-flame icon = food passion</li>
+      <li style="color:#6BCB77;">✓&nbsp; Unbounded = bold & premium</li>
+      <li style="color:#6BCB77;">✓&nbsp; Clean, no visual interruption</li>
+      <li style="color:#6BCB77;">✓&nbsp; Works 16px to billboard</li>
+      <li style="color:#6BCB77;">✓&nbsp; 3 full colour variants</li>
+    </ul>
+  </div>
+</section>
+
+<!-- MOCKUPS -->
+<section class="mock-section reveal">
+  <div class="chip" style="color:var(--tangerine);border-color:rgba(251,86,7,0.2);">07 — Real World Applications</div>
+  <div class="mock-grid">
+
+    <div class="mock-card tall">
+      <div class="mock-label">Restaurant Fascia / Signage</div>
+      <div class="mock-body" style="background:#050403;min-height:clamp(260px,35vw,440px);flex-direction:column;gap:24px;">
+        <div style="border:1px solid rgba(255,190,11,0.15);border-radius:6px;padding:clamp(16px,3vw,32px) clamp(24px,4vw,56px);background:var(--ink);box-shadow:0 0 80px rgba(251,86,7,0.12),0 0 120px rgba(255,190,11,0.06);">
+          <svg width="260" height="64" viewBox="0 0 260 64" fill="none" style="width:100%;max-width:260px;height:auto;">
+            <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="56" font-weight="900" letter-spacing="-2">
+              <tspan fill="#FFBE0B">Z</tspan><tspan fill="#F5F0E8">OMOGGY</tspan>
+            </text>
+          </svg>
+          <div style="width:100%;height:2px;background:linear-gradient(90deg,var(--tangerine) 0%,var(--yolk) 50%,transparent);margin-top:8px;"></div>
+          <div style="margin-top:10px;font-size:clamp(7px,1.2vw,9px);letter-spacing:4px;text-transform:uppercase;color:rgba(245,240,232,0.25);font-family:'Outfit',sans-serif;">Every Craving · One Destination</div>
+        </div>
+        <span style="font-size:8px;letter-spacing:3px;color:#333;text-transform:uppercase;">Uttam Nagar, New Delhi</span>
+      </div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-label">App Icon</div>
+      <div class="mock-body" style="background:#080604;gap:16px;">
+        <div class="icon-bg" style="width:clamp(60px,8vw,90px);height:clamp(60px,8vw,90px);border-radius:22px;box-shadow:0 12px 40px rgba(251,86,7,0.35);">
+          <svg width="50" height="50" viewBox="0 0 60 60" fill="none">
+            <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="white" opacity="0.95"/>
+            <path d="M38 52 Q30 59 22 52 Q28 47 30 43 Q32 47 38 52Z" fill="rgba(255,190,11,0.9)"/>
+          </svg>
+        </div>
+        <div class="icon-bg" style="width:clamp(40px,5vw,56px);height:clamp(40px,5vw,56px);border-radius:13px;background:var(--yolk);">
+          <svg width="32" height="32" viewBox="0 0 60 60" fill="none">
+            <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="var(--ink)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-label">Takeaway Packaging</div>
+      <div class="mock-body" style="background:#080604;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:64px;height:92px;background:linear-gradient(170deg,#1A1410,#2A1F14);border-radius:8px 8px 16px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(255,190,11,0.15);position:relative;overflow:hidden;">
+            <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--tangerine),var(--yolk));"></div>
+            <svg width="42" height="11" viewBox="0 0 260 64" fill="none">
+              <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="56" font-weight="900" letter-spacing="-2">
+                <tspan fill="#FFBE0B">Z</tspan><tspan fill="#F5F0E8">OMOGGY</tspan>
+              </text>
+            </svg>
+          </div>
+          <span style="font-size:7px;letter-spacing:2px;color:#333;text-transform:uppercase;">Cup</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:90px;height:70px;background:#F5F0E8;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(251,86,7,0.15);position:relative;overflow:hidden;">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--tangerine),var(--yolk));"></div>
+            <svg width="72" height="18" viewBox="0 0 260 64" fill="none">
+              <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="56" font-weight="900" letter-spacing="-2">
+                <tspan fill="#FB5607">Z</tspan><tspan fill="#0D0B08">OMOGGY</tspan>
+              </text>
+            </svg>
+          </div>
+          <span style="font-size:7px;letter-spacing:2px;color:#333;text-transform:uppercase;">Box</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-label">Staff Uniform</div>
+      <div class="mock-body" style="background:#080604;">
+        <div style="width:clamp(70px,9vw,96px);height:clamp(70px,9vw,96px);background:var(--ink);border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04);">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div class="icon-bg" style="width:28px;height:28px;border-radius:7px;">
+              <svg width="16" height="16" viewBox="0 0 60 60" fill="none">
+                <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="white"/>
+              </svg>
+            </div>
+            <svg width="56" height="13" viewBox="0 0 260 64" fill="none">
+              <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="56" font-weight="900" letter-spacing="-2" fill="white">ZOMOGGY</text>
+            </svg>
+          </div>
+        </div>
+        <div style="width:clamp(70px,9vw,96px);height:clamp(70px,9vw,96px);background:var(--tangerine);border-radius:10px;display:flex;align-items:center;justify-content:center;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:28px;height:28px;background:white;border-radius:7px;display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 60 60" fill="none">
+                <path d="M12 8 L48 8 L48 20 L28 32 L48 32 L38 52 L12 52 L22 32 L12 32 Z" fill="var(--tangerine)"/>
+              </svg>
+            </div>
+            <svg width="56" height="13" viewBox="0 0 260 64" fill="none">
+              <text x="4" y="58" font-family="'Unbounded',sans-serif" font-size="56" font-weight="900" letter-spacing="-2" fill="white">ZOMOGGY</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section class="strategy-section reveal">
+  <div class="chip">08 — Why This Wins The Gig</div>
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="s-num y">01</div>
+      <div class="s-title">Unbounded = Unforgettable</div>
+      <div class="s-desc">No restaurant in Uttam Nagar — probably in all of West Delhi — uses this typeface. It's impossible to confuse with anyone else. That's the point of a brand.</div>
+    </div>
+    <div class="strategy-card">
+      <div class="s-num o">02</div>
+      <div class="s-title">Two Colours, Infinite Flex</div>
+      <div class="s-desc">Yolk + Tangerine work together or separately. Hot signage, calm menus, loud packaging — one system covers every context without ever looking off-brand.</div>
+    </div>
+    <div class="strategy-card">
+      <div class="s-num r">03</div>
+      <div class="s-title">Built for the Digital World</div>
+      <div class="s-desc">The icon at 96px looks as sharp as at 16px. Zomato listing, Instagram grid, app icon, WhatsApp status — this identity was designed screen-first, print-second.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Zomoggy — Identity Concept III · Confidential · 2026</p>
+  <div class="f-logo"><span style="color:var(--yolk);">Z</span><span style="color:rgba(245,240,232,0.6);">OMOGGY</span></div>
+  <p>Uttam Nagar, New Delhi</p>
+</footer>
+
+<script>
+  // Cursor (desktop only)
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  if (cursor && window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+      setTimeout(() => {
+        ring.style.left = e.clientX + 'px';
+        ring.style.top  = e.clientY + 'px';
+      }, 80);
+    });
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
